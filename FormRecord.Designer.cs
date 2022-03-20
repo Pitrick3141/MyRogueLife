@@ -55,7 +55,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(152, 17);
             this.label1.TabIndex = 1;
-            this.label1.Text = "藏品图鉴（点击查看详情）";
+            this.label1.Text = "藏品列表（点击查看详情）";
             // 
             // richTextBox1
             // 
@@ -127,8 +127,8 @@
             this.MaximizeBox = false;
             this.Name = "FormRecord";
             this.ShowIcon = false;
-            this.Text = "旅行日记";
-            this.Load += new System.EventHandler(this.FormProperty_Load);
+            this.Text = "MyRogueLife";
+            this.Load += new System.EventHandler(this.FormRecord_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

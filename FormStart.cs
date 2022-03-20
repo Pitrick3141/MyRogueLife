@@ -52,8 +52,6 @@ namespace MyRogueLife
             button4.Left = 800;
             Debug.Print("主窗口加载完成");
             JsonData.LoadCollections();
-            JsonData.LoadEvents();
-            JsonData.LoadResults();
             Globle.player = JsonData.LoadPlayer();
             Globle.record = JsonData.LoadRecord();
         }
@@ -81,13 +79,6 @@ namespace MyRogueLife
         {
             Globle.formRecord = new();
             Globle.formRecord.Show();
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-            Globle.formMain = new();
-            Globle.formMain.Show();
-            Hide();
         }
     }
 }
