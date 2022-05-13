@@ -73,6 +73,43 @@ namespace MyRogueLife
                 return false;
             }
         }
+
+        public bool EventOccur(int index)
+        {
+            if (Globle.events.ContainsKey(index))
+            {
+                Events occuredEvent = Globle.events[index];
+                foreach (int exclude in occuredEvent.Exclude)
+                {
+                    if (evt.Contains(exclude))
+                    {
+                        Debug.Print("无法触发序号为" + index + "的事件" + occuredEvent.Name + "：与序号为" + exclude + "的事件" + Globle.events[exclude].Name + "互斥", 1);
+                        return false;
+                    }
+                }
+                foreach (int require in occuredEvent.Require)
+                {
+                    if (!tlt.Contains(require))
+                    {
+                        Debug.Print("无法触发序号为" + index + "的事件" + occuredEvent.Name + "：需要先触发序号为" + require + "的事件" + Globle.events[require].Name, 1);
+                        return false;
+                    }
+                }
+                Debug.Print("触发了序号为" + index + "的事件" + occuredEvent.Name);
+                evt.Add(index);
+                if (!Globle.record.eventOccurCount.ContainsKey(index))
+                {
+                    Globle.record.eventOccurCount.Add(index, 0);
+                }
+                Globle.record.eventOccurCount[index]++;
+                return true;
+            }
+            else
+            {
+                Debug.Print("不存在序号为" + index + "的事件", 1);
+                return false;
+            }
+        }
         public void PrintInfo()
         {
             Debug.Div();

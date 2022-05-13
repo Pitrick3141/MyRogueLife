@@ -52,6 +52,8 @@ namespace MyRogueLife
             button4.Left = 800;
             Debug.Print("主窗口加载完成");
             JsonData.LoadCollections();
+            JsonData.LoadEvents();
+            JsonData.LoadResults();
             Globle.player = JsonData.LoadPlayer();
             Globle.record = JsonData.LoadRecord();
         }

@@ -49,6 +49,8 @@ namespace MyRogueLife
         private void button3_Click(object sender, EventArgs e)
         {
             JsonData.LoadCollections();
+            JsonData.LoadEvents();
+            JsonData.LoadResults();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -70,6 +72,8 @@ namespace MyRogueLife
         private void button6_Click(object sender, EventArgs e)
         {
             JsonData.UnloadCollections();
+            JsonData.UnloadEvents();
+            JsonData.UnloadResults();
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -113,6 +117,35 @@ namespace MyRogueLife
         {
             Globle.player = new();
             Debug.Print("人物信息已重置");
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            if (textBox3.Text == "" || !textBox3.Text.All(char.IsDigit))
+            {
+                Debug.Print("输入的内容不合法", 1);
+                return;
+            }
+            int key = Convert.ToInt32(textBox3.Text);
+            Globle.player.EventOccur(key);
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            if (textBox4.Text == "" || !textBox4.Text.All(char.IsDigit))
+            {
+                Debug.Print("输入的内容不合法", 1);
+                return;
+            }
+            int key = Convert.ToInt32(textBox4.Text);
+            if(Globle.results.ContainsKey(key))
+            {
+                Globle.results[key].Occur();
+            }
+            else
+            {
+                Debug.Print("不存在序号为" + key + "的结果", 1);
+            }
         }
     }
 }

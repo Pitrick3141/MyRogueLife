@@ -50,6 +50,9 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button13 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.button15 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -249,6 +252,7 @@
             this.button13.TabIndex = 20;
             this.button13.Text = "测试发生事件";
             this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // button14
             // 
@@ -260,11 +264,40 @@
             this.button14.UseVisualStyleBackColor = true;
             this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(275, 72);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 17);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "结果id";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(275, 95);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(135, 23);
+            this.textBox4.TabIndex = 23;
+            // 
+            // button15
+            // 
+            this.button15.Location = new System.Drawing.Point(416, 72);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(116, 46);
+            this.button15.TabIndex = 24;
+            this.button15.Text = "测试发生结果";
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
+            // 
             // FormSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button15);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.button14);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.textBox3);
@@ -322,5 +355,8 @@
         private TextBox textBox3;
         private Button button13;
         private Button button14;
+        private Label label5;
+        private TextBox textBox4;
+        private Button button15;
     }
 }

@@ -47,13 +47,13 @@ namespace MyRogueLife
         {
             if (!File.Exists("data/items.json"))
             {
-                Debug.Print("数据文件不存在或完整性错误", 1);
+                Debug.Print("藏品数据文件不存在或完整性错误", 1);
                 return;
             }
             Debug.Div();
             Globle.items.Clear();
             Globle.weightList.Clear();
-            Debug.Print("开始读取数据文件...");
+            Debug.Print("开始读取藏品数据文件...");
             using (StreamReader sr = new("data/items.json"))
             {
                 using JsonReader reader = new JsonTextReader(sr);
@@ -98,12 +98,123 @@ namespace MyRogueLife
         public static void UnloadCollections()
         {
             Debug.Div();
-            Debug.Print("开始卸载数据文件...");
+            Debug.Print("开始卸载藏品数据文件...");
             Globle.items.Clear();
-            Debug.Print("数据文件卸载完成");
+            Debug.Print("藏品数据文件卸载完成");
             Debug.Div();
         }
 
+        public static void LoadEvents()
+        {
+            if (!File.Exists("data/events.json"))
+            {
+                Debug.Print("事件数据文件不存在或完整性错误", 1);
+                return;
+            }
+            Debug.Div();
+            Globle.events.Clear();
+            Globle.eventWeightList.Clear();
+            Debug.Print("开始读取事件数据文件...");
+            using (StreamReader sr = new("data/events.json"))
+            {
+                using JsonReader reader = new JsonTextReader(sr);
+                Debug.Print("正在读取事件...");
+                foreach (var item in JToken.ReadFrom(reader))
+                {
+                    int index = (int)item["id"]!;
+                    string name = item["name"]!.ToString();
+                    string des = item["des"]!.ToString();
+                    bool exclusive = (bool)item["exclusive"]!;
+                    int rare = (int)item["rare"]!;
+                    List<int> resultList = new();
+                    foreach (var res in item["results"]!)
+                    {
+                        int resId = (int)res;
+                        resultList.Add(resId);
+                    }
+                    Events temp = new(index, name, des, exclusive, rare,resultList);
+                    foreach (var req in item["require"]!)
+                    {
+                        int reqId = (int)req;
+                        temp.AddReq(reqId);
+                    }
+                    foreach (var exc in item["exclude"]!)
+                    {
+                        int excId = (int)exc;
+                        temp.AddExc(excId);
+                    }
+                    Globle.events.Add(index, temp);
+                    if (!temp.Exclusive)
+                    {
+                        Globle.eventWeightList.Add(index, temp.Rare);
+                    }
+                }
+            }
+            Debug.Print("事件读取完成");
+            Debug.Div();
+        }
+        public static void UnloadEvents()
+        {
+            Debug.Div();
+            Debug.Print("开始卸载事件数据文件...");
+            Globle.events.Clear();
+            Debug.Print("事件数据文件卸载完成");
+            Debug.Div();
+        }
+
+        public static void LoadResults()
+        {
+            if (!File.Exists("data/results.json"))
+            {
+                Debug.Print("结果数据文件不存在或完整性错误", 1);
+                return;
+            }
+            Debug.Div();
+            Globle.results.Clear();
+            Debug.Print("开始读取结果数据文件...");
+            using (StreamReader sr = new("data/results.json"))
+            {
+                using JsonReader reader = new JsonTextReader(sr);
+                Debug.Print("正在读取结果...");
+                foreach (var item in JToken.ReadFrom(reader))
+                {
+                    int index = (int)item["id"]!;
+                    string name = item["name"]!.ToString();
+                    string eff = item["eff"]!.ToString();
+                    string des = item["des"]!.ToString();
+                    string cond = item["conditions"]!.ToString();
+                    List<int> awards = new();
+                    foreach (var awd in item["awards"]!)
+                    {
+                        int awdId = (int)awd;
+                        awards.Add(awdId);
+                    }
+                    Results temp = new(index, name, eff, des, awards, cond);
+                    foreach (var req in item["require"]!)
+                    {
+                        int reqId = (int)req;
+                        temp.AddReq(reqId);
+                    }
+                    foreach (var exc in item["exclude"]!)
+                    {
+                        int excId = (int)exc;
+                        temp.AddExc(excId);
+                    }
+                    Globle.results.Add(index, temp);
+                }
+            }
+            Debug.Print("结果读取完成");
+            Debug.Div();
+        }
+
+        public static void UnloadResults()
+        {
+            Debug.Div();
+            Debug.Print("开始卸载结果数据文件...");
+            Globle.results.Clear();
+            Debug.Print("结果数据文件卸载完成");
+            Debug.Div();
+        }
         public static void SaveRecord(Record rec)
         {
             JsonSerializer serializer = new();
